@@ -16,3 +16,5 @@ Read `context/ptypecontext.txt` and orchestrate the pipeline:
 Stop the pipeline when any stage is blocked.
 
 For framework-level feature requests, first inspect existing patterns and the framework context, then confirm scope and acceptance criteria with the user. Have the Test Case Specialist capture testable acceptance criteria where applicable and use the same implementation, test, review, and execution gates.
+
+After the user approves the scope for a framework update or a new test-case request, create a dedicated `feature/<kebab-case-name>` branch before creating or editing any specification or implementation files. Do not work on `main`. Open a PR only after code-review approval and the required execution checks pass.

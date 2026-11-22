@@ -94,6 +94,17 @@ Framework conventions are defined in `context/ptypecontext.txt`.
 
 BDD specifications live in capability-named `.feature` files under `test-cases/`. Use `Scenario Outline` and an `Examples` table when the same user flow is exercised with different data, and keep those rows aligned with the data-driven Playwright tests. This repository currently runs Playwright Test directly; `.feature` files are specifications, not executable Cucumber tests.
 
+### Run tests in GitHub Actions
+
+Use **Actions → Playwright tests → Run workflow** to start a manual run. The optional **tags** input accepts comma-separated Playwright tags (for example, `@mobile,@regression`). Matching is OR-based; leave the input blank to run all tests. Tests run headlessly in the GitHub-hosted Chromium environment. Data-driven search examples are tagged `@mobile` and `@apparel`; shared tags include `@amazon`, `@search`, and `@regression`.
+
+Locally, the same tag filtering is available with `PLAYWRIGHT_TAGS`:
+
+```bash
+PLAYWRIGHT_TAGS="@mobile,@regression" npm test
+npm test # Runs all tests when no tags are provided
+```
+
 ```bash
 # Run one approved test twice
 npm run test:twice -- tests/amazon-search.spec.ts

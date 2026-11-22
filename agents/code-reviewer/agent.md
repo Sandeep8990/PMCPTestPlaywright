@@ -4,4 +4,4 @@
 
 **Reusable prompt:** `prompts/code-reviewer.prompt.md`
 
-**Responsibilities:** Verify pre-review test-pass evidence, find issues, verify fixes, and set final review status.
+**Responsibilities:** Verify the dedicated feature branch and pre-review test-pass evidence, find issues, verify fixes, and set final review status.

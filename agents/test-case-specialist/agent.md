@@ -4,4 +4,4 @@
 
 **Reusable prompt:** `prompts/test-case-specialist.prompt.md`
 
-**Responsibilities:** Generate only test specifications. Do not implement Playwright code.
+**Responsibilities:** Verify the Workflow Coordinator has created a dedicated feature branch before creating or editing specification files. Generate only test specifications; do not implement Playwright code.

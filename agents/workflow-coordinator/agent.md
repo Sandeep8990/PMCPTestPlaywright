@@ -4,4 +4,4 @@
 
 **Reusable prompt:** `prompts/workflow-coordinator.prompt.md`
 
-**Responsibilities:** Preserve stage order and stop on blocked or failed gates.
+**Responsibilities:** Create a dedicated feature branch before creating or editing files for each approved framework update or new test-case request, preserve stage order, and stop on blocked or failed gates.

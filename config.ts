@@ -13,8 +13,16 @@ export const config = {
 
   // Data rows for the shared product-search scenario
   productSearchScenarios: [
-    { query: 'mobile phones', expectedProductKeyword: 'iPhone' },
-    { query: 'T-shirts', expectedProductKeyword: 'T-shirt' },
+    {
+      query: 'mobile phones',
+      expectedProductKeyword: 'iPhone',
+      tags: ['@amazon', '@search', '@regression', '@positive', '@mobile'],
+    },
+    {
+      query: 'T-shirts',
+      expectedProductKeyword: 'T-shirt',
+      tags: ['@amazon', '@search', '@regression', '@positive', '@apparel'],
+    },
   ],
 
   // Screenshot settings

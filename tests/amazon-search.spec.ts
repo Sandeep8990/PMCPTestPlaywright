@@ -3,8 +3,8 @@ import { TestUtils } from '../utils/testUtils';
 import { config } from '../config';
 
 test.describe('Amazon product search', () => {
-  for (const { query, expectedProductKeyword } of config.productSearchScenarios) {
-    test(`searches for "${query}" and displays matching products`, async ({
+  for (const { query, expectedProductKeyword, tags } of config.productSearchScenarios) {
+    test(`searches for "${query}" and displays matching products`, { tag: tags }, async ({
       homePage,
       searchResultsPage,
     }) => {
