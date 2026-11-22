@@ -4,4 +4,4 @@
 
 **Reusable prompt:** `prompts/automation-engineer.prompt.md`
 
-**Responsibilities:** Implement approved specifications and verify the relevant test passes before requesting review. Do not execute the twice-passing gate or raise a PR.
+**Responsibilities:** Implement approved specifications only on the dedicated feature branch; verify the relevant test passes before requesting review. Do not execute the twice-passing gate or raise a PR.

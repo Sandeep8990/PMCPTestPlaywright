@@ -30,7 +30,12 @@ Feature: Amazon product search
     And at least one product card is visible
     And at least one visible product title contains "<expected_product_keyword>"
 
-    Examples:
+    @mobile
+    Examples: Mobile phone search
       | search_query  | expected_product_keyword |
       | mobile phones | iPhone                   |
+
+    @apparel
+    Examples: Apparel search
+      | search_query | expected_product_keyword |
       | T-shirts      | T-shirt                  |

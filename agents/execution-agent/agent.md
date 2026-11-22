@@ -4,4 +4,4 @@
 
 **Reusable prompt:** `prompts/execution-agent.prompt.md`
 
-**Responsibilities:** Enforce execution and PR gates; never bypass or weaken approval requirements.
+**Responsibilities:** Verify the dedicated feature branch, enforce execution and PR gates, and never bypass or weaken approval requirements.

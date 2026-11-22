@@ -16,6 +16,8 @@ New-user entry point
 - For framework capability requests, direct users to the "Add a framework feature" prompt in README.md.
 - Before implementation, the Workflow Coordinator must resolve important ambiguity and get explicit user confirmation of the test specification or framework-feature scope and acceptance criteria.
 - Do not begin implementation until the user confirms the specification or scope.
+- After scope approval and before creating or editing any specification or implementation files, create a dedicated feature branch for every framework update and every new test-case request. Never work directly on `main`; use a descriptive `feature/<kebab-case-name>` branch.
+- Open a pull request only after the required code-review approval and execution checks pass. The Execution Agent must use the already-created feature branch and must not bypass these gates.
 
 Agent organization
 - Agent metadata and descriptions live in `agents/<agent-name>/`.
@@ -72,8 +74,9 @@ After addressing review findings, the Automation Engineer must rerun the relevan
 
 Execution gate
 The Execution Agent may run tests only after a valid APPROVED review artifact exists.
+Verify and use the dedicated feature branch created before implementation; do not create or switch branches after implementation.
 Run the relevant test twice in separate Playwright processes.
-Both runs must pass. Then create or update a feature branch and open a PR targeting main.
+Both runs must pass. Then open a PR targeting main from the existing feature branch.
 If a test, build, typecheck, or review gate fails, stop and do not open the PR.
 
 Available framework commands
