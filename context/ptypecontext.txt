@@ -1,0 +1,85 @@
+Framework-level context: MCPTestPlaywright agentic testing system
+
+Purpose
+This repository uses a gated, agentic workflow to turn requirements into reviewed and executed Playwright tests.
+
+Required agent pipeline
+1. Test Case Specialist: creates executable test-case specifications from a requirement.
+2. Automation Engineer: converts approved specifications into Playwright/TypeScript tests.
+3. Code Reviewer: reviews implementation and approval artifacts; all feedback must be fixed and re-reviewed.
+4. Execution Agent: runs tests twice only after explicit code-review approval, then creates a PR to main.
+
+No agent may skip a pipeline stage or mark code approved on its own.
+
+New-user entry point
+- Direct new users to the "Start here: add your first test" section in README.md and its copy-paste Workflow Coordinator prompt.
+- For framework capability requests, direct users to the "Add a framework feature" prompt in README.md.
+- Before implementation, the Workflow Coordinator must resolve important ambiguity and get explicit user confirmation of the test specification or framework-feature scope and acceptance criteria.
+- Do not begin implementation until the user confirms the specification or scope.
+
+Agent organization
+- Agent metadata and descriptions live in `agents/<agent-name>/`.
+- Reusable agent instructions live in `prompts/<agent-name>.prompt.md`.
+- GitHub-discoverable custom-agent wrappers live in `.github/agents/`.
+- The Workflow Coordinator prompt in `prompts/workflow-coordinator.prompt.md` controls pipeline sequencing.
+
+Repository conventions
+- Tests live in tests/ and use .spec.ts or .test.ts filenames.
+- Page objects live in pages/ and are injected through fixtures.ts.
+- Shared browser interactions belong in pages/BasePage.ts.
+- Reusable assertion and reporting helpers belong in utils/testUtils.ts.
+- URLs, search terms, credentials, and environment-dependent values belong in config.ts.
+- Never commit secrets. Read credentials from environment variables or a secure vault.
+- New test data must be explicit, deterministic, and easy to update.
+- Keep test names and page-object methods descriptive and behavior-focused.
+- Use consistent, domain-oriented names: feature files describe the capability (for example, `amazon-product-search.feature`), not one example's data; Playwright specs use matching capability names (for example, `amazon-search.spec.ts`).
+- Add new cases alongside existing coverage. Do not replace or rename an existing test merely because a new test exercises the same feature.
+- Before adding tests, inspect existing specs and feature files. Reuse shared setup and assertions when behavior is the same; create separate scenarios only for distinct behavior or expected outcomes.
+- Keep each test focused on one behavior, avoid duplicated setup/assertion flows, and remove dead or redundant helpers when changing their only use.
+- Follow TypeScript strictness and existing formatting; prefer descriptive camelCase identifiers, explicit types where inference is unclear, and Playwright's locator-based auto-waiting assertions over boolean checks or fixed waits.
+- Keep test data separate from test logic. Use data-driven tests for the same workflow with different inputs and expected values; do not make a single test conditional based on the input.
+- Gherkin specifications use `.feature` files under `test-cases/<feature>/`, with a capability-oriented filename. Use `Scenario Outline` and an `Examples` table when only data and expected values vary; use separate scenarios for different behavior. Use `Given` for context, `When` for actions, and `Then` for observable outcomes.
+- Keep Gherkin examples and executable Playwright data rows aligned. This project currently uses Playwright Test, not a Cucumber runner: `.feature` files are BDD specifications, and equivalent data rows must be implemented in Playwright unless a Cucumber integration is explicitly approved.
+
+Playwright conventions
+- Import test and expect from fixtures.ts when page objects are required.
+- Use stable role, label, ID, and test-id locators before CSS text selectors.
+- Prefer explicit Playwright assertions and auto-waiting over fixed sleeps.
+- Avoid test-order dependencies. Each test must set up and clean up its own state.
+- Capture evidence on failure; use the configured Playwright reporter and test-results directory.
+- Reuse small page-object methods rather than embedding browser logic in specs.
+- Extend BasePage for common navigation, visibility, fill, click, and wait operations.
+
+Test-case specification format
+Store BDD specifications under `test-cases/<feature>/<capability>.feature`. Use Gherkin `Feature`, `Background` when setup is genuinely shared, `Scenario`, and `Scenario Outline`/`Examples` as appropriate.
+Every specification must include:
+- Requirement ID and source
+- Scope and assumptions
+- Preconditions
+- Test data
+- Observable outcomes in `Then` steps
+- Relevant positive, negative, boundary, and accessibility scenarios
+- Priority and automation notes
+- Data-driven examples when the same behavior is exercised with different inputs or expected values
+
+Code-review approval
+Store a review under reviews/<feature>/<scenario>-review.md.
+A review is approved only after all findings are corrected and a second review pass returns APPROVED.
+The approval must identify reviewed files, finding status, and reviewer.
+Any post-approval implementation change requires another review pass.
+Before the first review handoff, the Automation Engineer must run the relevant test successfully and include the passing command and result. If it fails, the engineer fixes the implementation and reruns until it passes; Code Review must not start without this evidence.
+After addressing review findings, the Automation Engineer must rerun the relevant test successfully before the second review pass.
+
+Execution gate
+The Execution Agent may run tests only after a valid APPROVED review artifact exists.
+Run the relevant test twice in separate Playwright processes.
+Both runs must pass. Then create or update a feature branch and open a PR targeting main.
+If a test, build, typecheck, or review gate fails, stop and do not open the PR.
+
+Available framework commands
+- npm test
+- npm run test:headed
+- npm run test:twice -- tests/<file>.spec.ts
+- npm run workflow:pr -- <test-file> <approval-file>
+
+Do not claim completion until verification evidence is produced.

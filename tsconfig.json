@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "Node16",
+    "lib": ["ESNext", "DOM"],
+    "strict": true,
+    "types": ["node"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "Node16",
+    "resolveJsonModule": true,
+    "outDir": "dist"
+  },
+  "include": ["tests", "playwright.config.ts"]
+}

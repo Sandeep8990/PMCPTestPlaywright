@@ -1,0 +1,17 @@
+{
+  "name": "mcptestplaywright",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "install:chromium": "npx playwright install chromium",
+    "test:twice": "node scripts/run-tests-twice.js",
+    "workflow:pr": "bash scripts/create-approved-pr.sh"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.1",
+    "typescript": "^6.0.3"
+  }
+}
